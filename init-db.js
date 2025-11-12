@@ -1,7 +1,7 @@
 // init-db.js
-const sqlite = require("sqlite3").verbose();
+const sqlite3 = require("sqlite3").verbose();
 const bcrypt = require("bcrypt");
-const db = new sqlite3.database("./taskvault.db");
+const db = new sqlite3.Database("./taskvault.db");
 
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (
