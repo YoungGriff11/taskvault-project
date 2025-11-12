@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><title>Dashboard</title></head><body>
+  <h1>Tasks for <%= user.email %></h1>
+  <a href="/logout" style="color: red; font-weight: bold;">Logout</a> |  
+  <% if (user.role === 'admin') { %>
+    <a href="/admin">Admin Panel</a>
+  <% } %>
+
+  <h3>Add Task</h3>
+  <form method="POST" action="/task">
+    <input name="title" placeholder="Title" required /><br><br>
+    <textarea name="description" placeholder="Description"></textarea><br><br>
+    <button>Add Task</button>
+  </form>
+
+  <h3>Your Tasks</h3>
+  <ul>
+  <% tasks.forEach(t => { %>
+    <li><strong><%- t.title %></strong>: <%- t.description %></li>
+  <% }) %>
+</ul>
+
+<!-- DOM XSS -->
+<script>
+  const inject = new URLSearchParams(location.search).get('inject');
+  if (inject) document.write(inject);
+</script>
+
+  <hr>
+  <a href="/search?q=<script>alert('Reflected XSS')</script>">Test Reflected XSS</a>
+</body></html>
