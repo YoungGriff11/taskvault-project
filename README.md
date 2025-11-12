@@ -1,0 +1,1 @@
+Main is being used to create the SQLITE db for both secure/insecure branches along with having the same .gitignore for both branches.
