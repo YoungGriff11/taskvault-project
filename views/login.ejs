@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TaskVault – Secure Login</title>
+  <style>
+    body {font-family: Arial; margin: 50px; background:#f4f4f4;}
+    input, button {padding: 10px; margin: 5px; width: 250px;}
+    button {background:#007bff; color:white; border:none; cursor:pointer;}
+  </style>
+</head>
+<body>
+  <h2>Secure Login</h2>
+  <form method="POST" action="/login">
+    <input name="email" type="email" placeholder="Email" required /><br><br>
+    <input name="password" type="password" placeholder="Password" required /><br><br>
+    
+    <!-- THIS LINE FIXES THE CSRF ERROR -->
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    
+    <button type="submit">Login</button>
+  </form>
+  <br>
+  <a href="/register">Register new account</a>
+</body>
+</html>

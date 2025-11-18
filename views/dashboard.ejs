@@ -1,0 +1,16 @@
+<h1>Tasks for <%= user.email %></h1>
+<a href="/logout">Logout</a>
+<% if (user.role === 'admin') { %><a href="/admin">Admin</a><% } %>
+
+<form method="POST" action="/task">
+  <input name="title" placeholder="Title" required /><br><br>
+  <textarea name="description"></textarea><br><br>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <button>Add Task</button>
+</form>
+
+<ul>
+  <% tasks.forEach(t => { %>
+    <li><strong><%= t.title.replace(/</g, '&lt;') %></strong>: <%= t.description.replace(/</g, '&lt;') %></li>
+  <% }) %>
+</ul>

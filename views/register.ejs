@@ -1,0 +1,7 @@
+<form method="POST" action="/register">
+  <input name="name" placeholder="Name" required /><br><br>
+  <input name="email" placeholder="Email" required /><br><br>
+  <input name="password" type="password" placeholder="Password" required /><br><br>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <button>Register</button>
+</form>
