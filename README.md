@@ -15,18 +15,18 @@ Insecure;
     Reflected XSS 
     Go to URL: http://localhost:3000/search?q=<script>alert(1)</script>, alert popup appears
  Secure;   
-    Same URL (or any URL with <script>, 404 or no alert
+    Same URL, "cannot GET /search"
 
 3:
 Insecure;
     Stored XSS 
-    1. Login as normal user
+    1. Login as normal user (test1@example.com // pass123)
     2. Add task → Title: <script>alert('STORED')</script>
     3. Submit
     Alert appears on every page refresh
 Secure:
-    Same exact steps
-    Alert appears on every page refresh Task saved, but no alert, shows as plain text
+    Same exact steps (test4@example.com // pass123)
+    Task saved, but no alert, shows as plain text
 
 4:
 Insecure;
@@ -35,7 +35,7 @@ Insecure;
     Alert popup
 Secure;
     Same URL
-    No alert (script escaped)
+    No alert (script escaped) / nothing happens
 
 5: 
 Insecure
@@ -44,7 +44,7 @@ Insecure
     2. Click “Admin Panel”
     Table shows Password column with plaintext passwords
 Secure;    
-    Same steps 
+    Same steps (admin2@taskvault.com / Admin123!)
     Table shows only ID, Name, Email with no password column
 
 6:
