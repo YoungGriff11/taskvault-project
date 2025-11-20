@@ -18,7 +18,7 @@ app.use(
   })
 );
 
-// === ROUTES ===
+//ROUTES
 
 // Home - Login Page
 app.get("/", (req, res) => {
@@ -126,7 +126,7 @@ app.get("/admin", (req, res) => {
   });
 });
 
-// === LOGOUT ROUTE ===
+// LOGOUT ROUTE
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
