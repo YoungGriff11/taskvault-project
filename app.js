@@ -14,15 +14,15 @@ const db = new sqlite3.Database("./taskvault.db"); //file-based DB
 
 // MIDDLEWARE SETUP
 
-app.set("view engine", "ejs");                          // Use EJS templates
-app.use(express.urlencoded({ extended: true }));        // Parse form bodies
-app.use(express.static("public"));                      // Serve static files (CSS, JS, images)
+app.set("view engine", "ejs"); // Use EJS templates
+app.use(express.urlencoded({ extended: true })); // Parse form bodies
+app.use(express.static("public")); // Serve static files (CSS, JS, images)
 app.use(
   session({
-    secret: "weaksecret",                               // Hardcoded secret → predictable sessions
-    resave: true,                                       // Forces session save even if unchanged
-    saveUninitialized: true,                            // Saves new but unmodified sessions
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },            // 24-hour cookie
+    secret: "weaksecret", // Hardcoded secret → predictable sessions
+    resave: true, // Forces session save even if unchanged
+    saveUninitialized: true, // Saves new but unmodified sessions
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 24-hour cookie
   })
 );
 
@@ -38,7 +38,7 @@ app.get("/register", (req, res) => {
 });
 
 // REGISTER USER - POST
-// HIGHLY INSECURE: SQL Injection + Plaintext passwords
+// SQL Injection + Plaintext passwords
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
 
@@ -47,7 +47,7 @@ app.post("/register", (req, res) => {
     return res.send("All fields are required");
   }
 
-  // DANGER: Direct string interpolation → Classic SQL Injection vulnerability
+  // Direct string interpolation → Classic SQL Injection vulnerability
   // Also stores password in PLAINTEXT!
   const sql = `INSERT INTO users (name, email, password, role) VALUES ('${name}', '${email}', '${password}', 'user')`;
 
@@ -66,14 +66,14 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
-  // DANGER: Raw user input in query → SQL Injection possible
+  //Raw user input in query → SQL Injection possible
   const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`;
 
   db.get(query, (err, user) => {
     if (err || !user) {
       return res.send("Invalid credentials");
     }
-    req.session.user = user;         // Store entire user object in session
+    req.session.user = user; // Store entire user object in session
     res.redirect("/dashboard");
   });
 });
@@ -90,12 +90,11 @@ app.get("/dashboard", (req, res) => {
     if (err) return res.send("Error loading tasks");
 
     // DOM-XSS VULNERABILITY
-    // Visit: /dashboard?inject=<script>alert(document.cookie)</script>
     // Because EJS will output this unsanitized into the page
     res.render("dashboard", {
       tasks,
       user: req.session.user,
-      inject: req.query.inject,  // Direct injection into template → DOM XSS
+      inject: req.query.inject, // Direct injection into template → DOM XSS
     });
   });
 });

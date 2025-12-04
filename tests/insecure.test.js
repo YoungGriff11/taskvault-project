@@ -1,4 +1,3 @@
-// tests/insecure.test.js ← COPY-PASTE THIS ENTIRE FILE (5/5 GREEN GUARANTEED)
 import { test, expect } from "@playwright/test";
 
 test.describe("INSECURE BRANCH – All 5 vulnerabilities exploitable", () => {
@@ -86,7 +85,9 @@ test.describe("INSECURE BRANCH – All 5 vulnerabilities exploitable", () => {
   }) => {
     await page.goto("http://localhost:3000/");
     await page.getByRole("textbox", { name: "Email" }).click();
-    await page.getByRole("textbox", { name: "Email" }).fill("test1@example.com");
+    await page
+      .getByRole("textbox", { name: "Email" })
+      .fill("test1@example.com");
     await page.getByRole("textbox", { name: "Password" }).click();
     await page.getByRole("textbox", { name: "Password" }).fill("pass123");
     await page.getByRole("textbox", { name: "Password" }).press("Enter");
