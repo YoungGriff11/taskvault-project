@@ -3,8 +3,22 @@
 
 <h2>Users (NO PASSWORDS)</h2>
 <table border="1">
-  <tr><th>ID</th><th>Name</th><th>Email</th></tr>
-  <% users.forEach(u => { %>
-    <tr><td><%= u.id %></td><td><%= u.name %></td><td><%= u.email %></td></tr>
-  <% }) %>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+  <% users.forEach(u=> { %>
+    <tr>
+      <td>
+        <%= u.id %>
+      </td>
+      <td>
+        <%= u.name %>
+      </td>
+      <td>
+        <%= u.email %>
+      </td>
+    </tr>
+    <% }) %>
 </table>
